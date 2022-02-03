@@ -45,6 +45,6 @@ public class FacultyService {
     }
 
     public Collection<Faculty> getAllFaculties() {
-        return facultyMap.values();
+        return new ArrayList<>(facultyMap.values());
     }
 }
