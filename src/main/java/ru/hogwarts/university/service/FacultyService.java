@@ -1,6 +1,7 @@
 package ru.hogwarts.university.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.university.exception.FacultyNotFound;
 import ru.hogwarts.university.model.Faculty;
 import ru.hogwarts.university.repository.FacultyRepository;
 
@@ -19,14 +20,22 @@ public class FacultyService {
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        return facultyRepository.findById(facultyId).get();
+        Faculty faculty = facultyRepository.findById(facultyId).get();
+        if (faculty == null) {
+            throw new FacultyNotFound();
+        }
+        return faculty;
     }
 
     public Faculty updateFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
 
-    public void deleteFaculty (Long facultyId) {
+    public void deleteFaculty(Long facultyId) {
+        Faculty faculty = facultyRepository.findById(facultyId).get();
+        if (faculty == null) {
+            throw new FacultyNotFound();
+        }
         facultyRepository.deleteById(facultyId);
     }
 

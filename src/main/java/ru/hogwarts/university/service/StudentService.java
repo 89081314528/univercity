@@ -2,6 +2,7 @@ package ru.hogwarts.university.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.university.exception.StudentNotFound;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.repository.StudentRepository;
 
@@ -20,7 +21,11 @@ StudentRepository studentRepository;
     }
 
     public Student getStudentById(Long studentId) {
-        return studentRepository.getById(studentId);
+        Student student = studentRepository.getById(studentId);
+        if (student == null) {
+            throw new StudentNotFound();
+        }
+        return student;
     }
 
     public Student updateStudent(Student student) {
@@ -28,6 +33,10 @@ StudentRepository studentRepository;
     }
 
     public void deleteStudent(Long studentId) {
+        Student student = studentRepository.getById(studentId);
+        if (student == null) {
+            throw new StudentNotFound();
+        }
         studentRepository.deleteById(studentId);
     }
 
