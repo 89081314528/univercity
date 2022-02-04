@@ -12,11 +12,11 @@ public class Faculty {
     @Column(name = "name")
     private String name;
     @Column(name = "colour")
-    private String color;
+    private String colour;
 
     public Faculty(String name, String color) {
         this.name = name;
-        this.color = color;
+        this.colour = color;
     }
 
     public Faculty(){};
@@ -38,10 +38,10 @@ public class Faculty {
     }
 
     public String getColor() {
-        return color;
+        return colour;
     }
 
     public void setColor(String color) {
-        this.color = color;
+        this.colour = color;
     }
 }
