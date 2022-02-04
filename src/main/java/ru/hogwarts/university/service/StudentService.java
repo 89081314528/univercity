@@ -2,6 +2,7 @@ package ru.hogwarts.university.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.university.exception.StudentNotFound;
 import ru.hogwarts.university.model.Student;
 
 import java.util.*;
@@ -19,19 +20,27 @@ public class StudentService {
     }
 
     public Student getStudentById(Long studentId) {
-        return studentMap.get(studentId);
+        Student student = studentMap.get(studentId);
+        if (student == null) {
+            throw new StudentNotFound();
+        }
+        return student;
     }
 
     public Student updateStudent(Student student) {
-        if (studentMap.containsKey(student.getId())) {
-            studentMap.put(student.getId(), student);
-            return student;
+        if (!studentMap.containsKey(student.getId())) {
+            throw new StudentNotFound();
         }
-        return null;
+        studentMap.put(student.getId(), student);
+        return student;
     }
 
-    public Student deleteStudent(Long studentId) {
-        return studentMap.remove(studentId);
+    public void deleteStudent(Long studentId) {
+        Student student = studentMap.get(studentId);
+        if (student == null) {
+            throw new StudentNotFound();
+        }
+        studentMap.remove(studentId);
     }
 
     public List<Student> getByAge(int age) {
@@ -46,6 +55,6 @@ public class StudentService {
     }
 
     public Collection<Student> getAllStudents() {
-        return studentMap.values();
+        return new ArrayList<>(studentMap.values());
     }
 }

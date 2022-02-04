@@ -1,6 +1,7 @@
 package ru.hogwarts.university.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.university.exception.FacultyNotFound;
 import ru.hogwarts.university.model.Faculty;
 
 import java.util.*;
@@ -18,19 +19,27 @@ public class FacultyService {
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        return facultyMap.get(facultyId);
+        Faculty faculty = facultyMap.get(facultyId);
+        if (faculty == null) {
+            throw new FacultyNotFound();
+        }
+        return faculty;
     }
 
     public Faculty updateFaculty(Faculty faculty) {
-        if (facultyMap.containsKey(faculty.getId())) {
-            facultyMap.put(faculty.getId(), faculty);
-            return faculty;
+        if (!facultyMap.containsKey(faculty.getId())) { //??????
+            throw new FacultyNotFound();
         }
-        return null;
+        facultyMap.put(faculty.getId(), faculty);
+        return faculty;
     }
 
-    public Faculty deleteFaculty (Long facultyId) {
-        return facultyMap.remove(facultyId);
+    public void deleteFaculty (Long facultyId) { // может возвращать Faculty?
+        Faculty faculty = facultyMap.get(facultyId);
+        if (faculty == null) {
+            throw new FacultyNotFound();
+        }
+        facultyMap.remove(facultyId);
     }
 
     public List<Faculty> getByColour(String colour) {
