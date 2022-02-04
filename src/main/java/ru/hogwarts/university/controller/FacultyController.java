@@ -43,7 +43,7 @@ public class FacultyController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Faculty>> getAllFaculties() {
-        return ResponseEntity.ok(facultyService.getAllFaculties());
+    public Collection<Faculty> getAllFaculties() {
+        return facultyService.getAllFaculties();
     }
 }

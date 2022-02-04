@@ -9,7 +9,7 @@ import java.util.*;
 
 @Service
 public class FacultyService {
-    FacultyRepository facultyRepository;
+    private final FacultyRepository facultyRepository;
 
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
@@ -20,7 +20,7 @@ public class FacultyService {
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        Faculty faculty = facultyRepository.findById(facultyId).get();
+        Faculty faculty = facultyRepository.findById(facultyId).orElse(null);
         if (faculty == null) {
             throw new FacultyNotFound();
         }
@@ -32,7 +32,7 @@ public class FacultyService {
     }
 
     public void deleteFaculty(Long facultyId) {
-        Faculty faculty = facultyRepository.findById(facultyId).get();
+        Faculty faculty = facultyRepository.findById(facultyId).orElse(null);
         if (faculty == null) {
             throw new FacultyNotFound();
         }
@@ -40,14 +40,7 @@ public class FacultyService {
     }
 
     public List<Faculty> getByColour(String colour) {
-        Collection<Faculty> allFaculties = facultyRepository.findAll();
-        List<Faculty> facultiesByColour = new ArrayList<>();
-        for (Faculty faculty : allFaculties) {
-            if (faculty.getColor().equals(colour)) {
-                facultiesByColour.add(faculty);
-            }
-        }
-        return facultiesByColour;
+        return facultyRepository.findByColour(colour);
     }
 
     public Collection<Faculty> getAllFaculties() {

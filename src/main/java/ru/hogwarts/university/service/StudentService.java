@@ -10,7 +10,8 @@ import java.util.*;
 
 @Service
 public class StudentService {
-StudentRepository studentRepository;
+
+    private final StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -21,7 +22,7 @@ StudentRepository studentRepository;
     }
 
     public Student getStudentById(Long studentId) {
-        Student student = studentRepository.getById(studentId);
+        Student student = studentRepository.findById(studentId).orElse(null);
         if (student == null) {
             throw new StudentNotFound();
         }
@@ -33,7 +34,7 @@ StudentRepository studentRepository;
     }
 
     public void deleteStudent(Long studentId) {
-        Student student = studentRepository.getById(studentId);
+        Student student = studentRepository.findById(studentId).orElse(null);
         if (student == null) {
             throw new StudentNotFound();
         }
@@ -41,14 +42,7 @@ StudentRepository studentRepository;
     }
 
     public List<Student> getByAge(int age) {
-        Collection<Student> allStudents = studentRepository.findAll();
-        List<Student> studentsByAge = new ArrayList<>();
-        for (Student student : allStudents) {
-            if (student.getAge() == age) {
-                studentsByAge.add(student);
-            }
-        }
-        return studentsByAge;
+        return studentRepository.getByAge(age);
     }
 
     public Collection<Student> getAllStudents() {
