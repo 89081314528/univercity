@@ -2,6 +2,7 @@ package ru.hogwarts.university.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.university.exception.AgeIsNotCorrect;
 import ru.hogwarts.university.exception.StudentNotFound;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.repository.StudentRepository;
@@ -47,5 +48,12 @@ public class StudentService {
 
     public Collection<Student> getAllStudents() {
         return studentRepository.findAll();
+    }
+
+    public List<Student> findByAgeBetween(int min, int max) {
+        if(min > max) {
+            throw new AgeIsNotCorrect();
+        }
+        return studentRepository.findByAgeBetween(min, max);
     }
 }

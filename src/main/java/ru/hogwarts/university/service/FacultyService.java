@@ -39,11 +39,16 @@ public class FacultyService {
         facultyRepository.deleteById(facultyId);
     }
 
+    public Collection<Faculty> getAllFaculties() {
+        return facultyRepository.findAll();
+    }
+
     public List<Faculty> getByColour(String colour) {
         return facultyRepository.findByColour(colour);
     }
 
-    public Collection<Faculty> getAllFaculties() {
-        return facultyRepository.findAll();
+    //в методе делать строку с sql запросом либо where color = where name =
+    public List<Faculty> findByNameOrColour(String name, String colour) {
+        return facultyRepository.findByNameIgnoreCaseOrColourIgnoreCase(name, colour);
     }
 }

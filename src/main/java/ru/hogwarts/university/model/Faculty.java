@@ -1,6 +1,7 @@
 package ru.hogwarts.university.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "faculty")
@@ -13,6 +14,8 @@ public class Faculty {
     private String name;
     @Column(name = "colour")
     private String colour;
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
 
     public Faculty(String name, String color) {
         this.name = name;
