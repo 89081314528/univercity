@@ -47,7 +47,7 @@ public class FacultyService {
         return facultyRepository.findByColour(colour);
     }
 
-    //в методе делать строку с sql запросом либо where color = where name =
+    //в методе делать строку с sql запросом where color = или where name =
     public List<Faculty> findByNameOrColour(String name, String colour) {
         return facultyRepository.findByNameIgnoreCaseOrColourIgnoreCase(name, colour);
     }
