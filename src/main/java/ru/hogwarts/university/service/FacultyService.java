@@ -1,7 +1,7 @@
 package ru.hogwarts.university.service;
 
 import org.springframework.stereotype.Service;
-import ru.hogwarts.university.exception.FacultyNotFound;
+import ru.hogwarts.university.exception.FacultyNotFoundException;
 import ru.hogwarts.university.model.Faculty;
 
 import java.util.*;
@@ -21,14 +21,14 @@ public class FacultyService {
     public Faculty getFacultyById(Long facultyId) {
         Faculty faculty = facultyMap.get(facultyId);
         if (faculty == null) {
-            throw new FacultyNotFound();
+            throw new FacultyNotFoundException();
         }
         return faculty;
     }
 
     public Faculty updateFaculty(Faculty faculty) {
         if (!facultyMap.containsKey(faculty.getId())) { //??????
-            throw new FacultyNotFound();
+            throw new FacultyNotFoundException();
         }
         facultyMap.put(faculty.getId(), faculty);
         return faculty;
@@ -37,7 +37,7 @@ public class FacultyService {
     public void deleteFaculty (Long facultyId) { // может возвращать Faculty?
         Faculty faculty = facultyMap.get(facultyId);
         if (faculty == null) {
-            throw new FacultyNotFound();
+            throw new FacultyNotFoundException();
         }
         facultyMap.remove(facultyId);
     }
