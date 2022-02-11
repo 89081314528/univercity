@@ -1,8 +1,7 @@
 package ru.hogwarts.university.service;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.university.exception.StudentNotFound;
+import ru.hogwarts.university.exception.StudentNotFoundException;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.repository.StudentRepository;
 
@@ -24,7 +23,7 @@ public class StudentService {
     public Student getStudentById(Long studentId) {
         Student student = studentRepository.findById(studentId).orElse(null);
         if (student == null) {
-            throw new StudentNotFound();
+            throw new StudentNotFoundException();
         }
         return student;
     }
@@ -36,7 +35,7 @@ public class StudentService {
     public void deleteStudent(Long studentId) {
         Student student = studentRepository.findById(studentId).orElse(null);
         if (student == null) {
-            throw new StudentNotFound();
+            throw new StudentNotFoundException();
         }
         studentRepository.deleteById(studentId);
     }
