@@ -2,6 +2,7 @@ package ru.hogwarts.university.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.university.exception.FacultyNotFoundException;
+import ru.hogwarts.university.exception.NameAndColourIsNullException;
 import ru.hogwarts.university.model.Faculty;
 import ru.hogwarts.university.repository.FacultyRepository;
 
@@ -44,11 +45,19 @@ public class FacultyService {
     }
 
     public List<Faculty> getByColour(String colour) {
-        return facultyRepository.findByColour(colour);
+        return facultyRepository.findByColourIgnoreCase(colour);
     }
 
-    //в методе делать строку с sql запросом where color = или where name =
     public List<Faculty> findByNameOrColour(String name, String colour) {
+        if (name == null && colour != null) {
+            return facultyRepository.findByColourIgnoreCase(colour);
+        }
+        if (name != null && colour == null) {
+            return facultyRepository.findByNameIgnoreCase(name);
+        }
+        if (name == null && colour == null) {
+            throw new NameAndColourIsNullException();
+        }
         return facultyRepository.findByNameIgnoreCaseOrColourIgnoreCase(name, colour);
     }
 }
