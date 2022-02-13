@@ -20,10 +20,7 @@ public class FacultyService {
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        Faculty faculty = facultyRepository.findById(facultyId).orElse(null);
-        if (faculty == null) {
-            throw new FacultyNotFoundException();
-        }
+        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
         return faculty;
     }
 
@@ -32,10 +29,7 @@ public class FacultyService {
     }
 
     public void deleteFaculty(Long facultyId) {
-        Faculty faculty = facultyRepository.findById(facultyId).orElse(null);
-        if (faculty == null) {
-            throw new FacultyNotFoundException();
-        }
+        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
         facultyRepository.deleteById(facultyId);
     }
 
