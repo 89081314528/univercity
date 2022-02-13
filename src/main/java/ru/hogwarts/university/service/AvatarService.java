@@ -42,6 +42,10 @@ public class AvatarService {
             bis.transferTo(bos); // записывает в файл
         }
         Avatar avatar = findAvatar(studentId); // ?? если нет студента, то null?
+        // может здесь сделать и убрать из метода findAvatar?
+        if (avatar == null) {
+            avatar = new Avatar();
+        }
         avatar.setStudent(student);
         avatar.setFilePath(filePath.toString());
         avatar.setFileSize(avatarFile.getSize());
@@ -52,9 +56,9 @@ public class AvatarService {
 
     public Avatar findAvatar(Long studentId) {
         Avatar avatar = avatarRepository.findByStudentId(studentId);
-        if (avatar == null) {
-            avatar = new Avatar();
-        }
+//        if (avatar == null) {
+//            avatar = new Avatar();
+//        }
         return avatar;
     }
 

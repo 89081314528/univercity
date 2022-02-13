@@ -33,6 +33,10 @@ public class AvatarController {
     @GetMapping(value = "/{studentId}/avatar-from-db") // ???если нет аватара с таким айди студента, ошибка 500
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long studentId) {
         Avatar avatar = avatarService.findAvatar(studentId);
+        // может здесь написать ????
+        if (avatar == null) {
+            return ResponseEntity.notFound().build();
+        }
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
         headers.setContentLength(avatar.getData().length);
