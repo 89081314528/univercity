@@ -32,9 +32,9 @@ public class FacultyController {
     }
 
     @DeleteMapping("/{id}") // в случае успеха вернется ок, а в случае неуспеха в сервисе кидается исключение
-    public ResponseEntity deleteFaculty(@PathVariable(name = "id") Long facultyId) {
+    public void deleteFaculty(@PathVariable(name = "id") Long facultyId) {
         facultyService.deleteFaculty(facultyId);
-        return ResponseEntity.ok().build();
+        ResponseEntity.ok().build();
     }
 
     @GetMapping("/getByColor/{color}")
