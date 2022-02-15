@@ -30,10 +30,9 @@ public class AvatarController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/{studentId}/avatar-from-db") // ???если нет аватара с таким айди студента, ошибка 500
+    @GetMapping(value = "/{studentId}/avatar-from-db")
     public ResponseEntity<byte[]> downloadAvatar(@PathVariable Long studentId) {
         Avatar avatar = avatarService.findAvatar(studentId);
-        // может здесь написать ????
         if (avatar == null) {
             return ResponseEntity.notFound().build();
         }
@@ -43,7 +42,7 @@ public class AvatarController {
         return ResponseEntity.status(HttpStatus.OK).headers(headers).body(avatar.getData());
     }
 
-    @GetMapping(value = "/{studentId}/avatar-from-file") // ???если нет аватара с таким айди студента, ошибка 500
+    @GetMapping(value = "/{studentId}/avatar-from-file")
     public void downloadAvatar(@PathVariable Long studentId, HttpServletResponse response) throws IOException{
         Avatar avatar = avatarService.findAvatar(studentId);
         Path path = Path.of(avatar.getFilePath());
