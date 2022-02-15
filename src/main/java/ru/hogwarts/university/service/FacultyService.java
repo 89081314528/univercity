@@ -20,11 +20,7 @@ public class FacultyService {
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        Faculty faculty = facultyRepository.findById(facultyId).orElse(null);
-        if (faculty == null) {
-            throw new FacultyNotFoundException();
-        }
-        return faculty;
+        return facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
     }
 
     public Faculty updateFaculty(Faculty faculty) {
@@ -32,10 +28,7 @@ public class FacultyService {
     }
 
     public void deleteFaculty(Long facultyId) {
-        Faculty faculty = facultyRepository.findById(facultyId).orElse(null);
-        if (faculty == null) {
-            throw new FacultyNotFoundException();
-        }
+        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
         facultyRepository.deleteById(facultyId);
     }
 
@@ -47,7 +40,6 @@ public class FacultyService {
         return facultyRepository.findByColour(colour);
     }
 
-    //в методе делать строку с sql запросом where color = или where name =
     public List<Faculty> findByNameOrColour(String name, String colour) {
         return facultyRepository.findByNameIgnoreCaseOrColourIgnoreCase(name, colour);
     }
