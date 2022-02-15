@@ -20,15 +20,14 @@ public class FacultyService {
     }
 
     public Faculty getFacultyById(Long facultyId) {
-        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
-        return faculty;
+        return facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
     }
 
     public Faculty updateFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
 
-    public void deleteFaculty(Long facultyId) {
+    public void deleteFaculty(Long facultyId) { // existByld
         Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
         facultyRepository.deleteById(facultyId);
     }

@@ -22,15 +22,14 @@ public class StudentService {
     }
 
     public Student getStudentById(Long studentId) {
-        Student student = studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
-        return student;
+        return studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
     }
 
     public Student updateStudent(Student student) {
         return studentRepository.save(student);
     }
 
-    public void deleteStudent(Long studentId) {
+    public void deleteStudent(Long studentId) { // existByld
         Student student = studentRepository.findById(studentId).orElseThrow(FacultyNotFoundException::new);
         studentRepository.deleteById(studentId);
     }
