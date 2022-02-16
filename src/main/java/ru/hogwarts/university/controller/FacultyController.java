@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.university.model.Faculty;
 import ru.hogwarts.university.service.FacultyService;
-
 import java.util.Collection;
 import java.util.List;
 
