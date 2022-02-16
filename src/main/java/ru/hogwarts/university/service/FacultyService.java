@@ -27,8 +27,11 @@ public class FacultyService {
         return facultyRepository.save(faculty);
     }
 
-    public void deleteFaculty(Long facultyId) { // existByld
-        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
+    public void deleteFaculty(Long facultyId) { // existById
+        boolean facultyExists = facultyRepository.existsById(facultyId);
+        if (!facultyExists) {
+            throw new FacultyNotFoundException();
+        }
         facultyRepository.deleteById(facultyId);
     }
 
