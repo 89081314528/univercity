@@ -1,10 +1,8 @@
 package ru.hogwarts.university.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.university.model.Faculty;
 import ru.hogwarts.university.service.FacultyService;
-
 import java.util.Collection;
 import java.util.List;
 
@@ -48,7 +46,7 @@ public class FacultyController {
     }
 
     @GetMapping("/findByNameOrColour")
-    List<Faculty> findByNameIgnoreCaseOrColourIgnoreCase(@RequestParam (required = false) String name,
+    List<Faculty> findByNameOrColour(@RequestParam (required = false) String name,
                                                          @RequestParam (required = false) String colour) {
         return facultyService.findByNameOrColour(name, colour);
     }
