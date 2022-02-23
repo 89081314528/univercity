@@ -18,14 +18,14 @@ import java.nio.file.Path;
 
 @RestController
 public class AvatarController {
-    final AvatarService avatarService;
+    private final AvatarService avatarService;
 
     public AvatarController(AvatarService avatarService) {
         this.avatarService = avatarService;
     }
 
     @PostMapping(value = "/{studentId}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId, @RequestParam MultipartFile avatar) throws IOException, IOException {
+    public ResponseEntity<String> uploadAvatar(@PathVariable Long studentId, @RequestParam MultipartFile avatar) throws IOException {
         avatarService.uploadAvatar(studentId, avatar);
         return ResponseEntity.ok().build();
     }
