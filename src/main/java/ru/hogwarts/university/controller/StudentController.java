@@ -2,6 +2,9 @@ package ru.hogwarts.university.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.university.dto.AverageAge;
+import ru.hogwarts.university.dto.LastFive;
+import ru.hogwarts.university.dto.QuantityOfStudents;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.service.StudentService;
 
@@ -51,5 +54,30 @@ public class StudentController {
     @GetMapping("/findByAgeBetween")
     public Collection<Student> findByAgeBetween(@RequestParam int min,@RequestParam int max) {
         return studentService.findByAgeBetween(min, max);
+    }
+
+    @GetMapping("/getQuantityOfStudents")
+    public QuantityOfStudents getQuantityOfStudents() {
+        return studentService.getQuantityOfStudents();
+    }
+
+    @GetMapping("/getAverageAge")
+    public AverageAge getAverageAge() {
+        return studentService.getAverageAge();
+    }
+
+    @GetMapping("/getLastFive")
+    public List<LastFive> getLastFive() {
+        return studentService.getLastFive();
+    }
+
+    @GetMapping("/getLastFive2")
+    public List<Student> getLastFive2() {
+        return studentService.getLastFive2();
+    }
+
+    @GetMapping("/getAllStudentsByPage")
+    public List<Student> getAllStudentsByPage(@RequestParam int pageNumber, @RequestParam int pageSize) {
+        return studentService.getAllStudentsByPage(pageNumber, pageSize);
     }
 }

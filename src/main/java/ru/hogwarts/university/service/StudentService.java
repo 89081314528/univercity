@@ -1,11 +1,15 @@
 package ru.hogwarts.university.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.university.dto.AverageAge;
+import ru.hogwarts.university.dto.LastFive;
+import ru.hogwarts.university.dto.QuantityOfStudents;
 import ru.hogwarts.university.exception.AgeIsNotCorrectException;
-import ru.hogwarts.university.exception.FacultyNotFoundException;
 import ru.hogwarts.university.exception.StudentNotFoundException;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.repository.StudentRepository;
+import ru.hogwarts.university.repository.StudentRepository2;
 
 import java.util.*;
 
@@ -13,9 +17,11 @@ import java.util.*;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final StudentRepository2 studentRepository2;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository, StudentRepository2 studentRepository2) {
         this.studentRepository = studentRepository;
+        this.studentRepository2 = studentRepository2;
     }
 
     public Student createStudent(Student student) {
@@ -51,5 +57,26 @@ public class StudentService {
             throw new AgeIsNotCorrectException();
         }
         return studentRepository.findByAgeBetween(min, max);
+    }
+
+    public QuantityOfStudents getQuantityOfStudents() {
+        return studentRepository.getQuantityOfStudents();
+    }
+
+    public AverageAge getAverageAge() {
+        return studentRepository.getAverageAge();
+    }
+
+    public List<LastFive> getLastFive() {
+        return studentRepository.getLastFive();
+    }
+
+    public List<Student> getLastFive2() {
+        return studentRepository.getLastFive2();
+    }
+
+    public List<Student> getAllStudentsByPage(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        return studentRepository2.findAll(pageRequest).getContent();
     }
 }
