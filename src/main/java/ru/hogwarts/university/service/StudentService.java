@@ -9,7 +9,6 @@ import ru.hogwarts.university.exception.AgeIsNotCorrectException;
 import ru.hogwarts.university.exception.StudentNotFoundException;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.repository.StudentRepository;
-import ru.hogwarts.university.repository.StudentRepository2;
 
 import java.util.*;
 
@@ -17,11 +16,9 @@ import java.util.*;
 public class StudentService {
 
     private final StudentRepository studentRepository;
-    private final StudentRepository2 studentRepository2;
 
-    public StudentService(StudentRepository studentRepository, StudentRepository2 studentRepository2) {
+    public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
-        this.studentRepository2 = studentRepository2;
     }
 
     public Student createStudent(Student student) {
@@ -75,8 +72,4 @@ public class StudentService {
         return studentRepository.getLastFive2();
     }
 
-    public List<Student> getAllStudentsByPage(int pageNumber, int pageSize) {
-        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
-        return studentRepository2.findAll(pageRequest).getContent();
-    }
 }

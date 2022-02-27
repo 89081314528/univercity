@@ -76,8 +76,4 @@ public class StudentController {
         return studentService.getLastFive2();
     }
 
-    @GetMapping("/getAllStudentsByPage")
-    public List<Student> getAllStudentsByPage(@RequestParam int pageNumber, @RequestParam int pageSize) {
-        return studentService.getAllStudentsByPage(pageNumber, pageSize);
-    }
 }
