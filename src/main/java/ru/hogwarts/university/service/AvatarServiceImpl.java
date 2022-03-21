@@ -26,12 +26,10 @@ public class AvatarServiceImpl implements AvatarService {
 
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
-    private final AvatarRepository avatarRepository2;
 
-    public AvatarServiceImpl(StudentService studentService, AvatarRepository avatarRepository, AvatarRepository avatarRepository2) {
+    public AvatarServiceImpl(StudentService studentService, AvatarRepository avatarRepository) {
         this.studentService = studentService;
         this.avatarRepository = avatarRepository;
-        this.avatarRepository2 = avatarRepository2;
     }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
@@ -69,7 +67,7 @@ public class AvatarServiceImpl implements AvatarService {
 
     public List<AvatarDto> getAllAvatarsByPage(int pageNumber, int pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
-        List<Avatar> avatars = avatarRepository2.findAll(pageRequest).getContent();
+        List<Avatar> avatars = avatarRepository.findAll(pageRequest).getContent();
         List<AvatarDto> avatarDtos = new ArrayList<>();
         for (Avatar avatar : avatars) {
             avatarDtos.add(new AvatarDto(avatar.getId(), avatar.getFilePath(), avatar.getFileSize(), avatar.getMediaType()));

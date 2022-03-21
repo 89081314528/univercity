@@ -1,10 +1,7 @@
 package ru.hogwarts.university.service;
 
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.university.dto.AverageAge;
 import ru.hogwarts.university.dto.LastFive;
-import ru.hogwarts.university.dto.QuantityOfStudents;
 import ru.hogwarts.university.exception.AgeIsNotCorrectException;
 import ru.hogwarts.university.exception.StudentNotFoundException;
 import ru.hogwarts.university.model.Student;
@@ -56,11 +53,11 @@ public class StudentService {
         return studentRepository.findByAgeBetween(min, max);
     }
 
-    public QuantityOfStudents getQuantityOfStudents() {
+    public int getQuantityOfStudents() {
         return studentRepository.getQuantityOfStudents();
     }
 
-    public AverageAge getAverageAge() {
+    public int getAverageAge() {
         return studentRepository.getAverageAge();
     }
 

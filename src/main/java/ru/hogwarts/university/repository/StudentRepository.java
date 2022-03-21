@@ -2,9 +2,7 @@ package ru.hogwarts.university.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import ru.hogwarts.university.dto.AverageAge;
 import ru.hogwarts.university.dto.LastFive;
-import ru.hogwarts.university.dto.QuantityOfStudents;
 import ru.hogwarts.university.model.Student;
 
 import java.util.List;
@@ -14,10 +12,10 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByAgeBetween(int min, int max);
 
     @Query(value = "select count(*) from student", nativeQuery = true)
-    QuantityOfStudents getQuantityOfStudents();
+    int getQuantityOfStudents();
 
     @Query(value = "select avg(age) from student", nativeQuery = true)
-    AverageAge getAverageAge();
+    int getAverageAge();
 
     @Query(value = "select * from student order by id desc limit 5", nativeQuery = true)
     List<LastFive> getLastFive();

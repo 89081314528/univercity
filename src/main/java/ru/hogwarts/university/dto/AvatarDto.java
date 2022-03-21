@@ -1,20 +1,16 @@
 package ru.hogwarts.university.dto;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Column;
 
 @Data
+@RequiredArgsConstructor
 public class AvatarDto {
-    private Long id;
-    private String filePath;
-    private long fileSize;
-    private String mediaType;
+    private final Long id;
+    private final String filePath;
+    private final long fileSize;
+    private final String mediaType;
 
-    public AvatarDto(Long id, String filePath, long fileSize, String mediaType) {
-        this.id = id;
-        this.filePath = filePath;
-        this.fileSize = fileSize;
-        this.mediaType = mediaType;
-    }
 }

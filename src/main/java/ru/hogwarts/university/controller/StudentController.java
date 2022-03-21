@@ -1,10 +1,7 @@
 package ru.hogwarts.university.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hogwarts.university.dto.AverageAge;
 import ru.hogwarts.university.dto.LastFive;
-import ru.hogwarts.university.dto.QuantityOfStudents;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.service.StudentService;
 
@@ -41,7 +38,7 @@ public class StudentController {
         studentService.deleteStudent(studentId);
     }
 
-    @GetMapping("/getByAge/{age}")
+    @GetMapping("/age/{age}")
     public List<Student> getByAge(@PathVariable int age) {
         return studentService.getByAge(age);
     }
@@ -51,27 +48,27 @@ public class StudentController {
         return studentService.getAllStudents();
     }
 
-    @GetMapping("/findByAgeBetween")
+    @GetMapping("/ageBetween")
     public Collection<Student> findByAgeBetween(@RequestParam int min,@RequestParam int max) {
         return studentService.findByAgeBetween(min, max);
     }
 
-    @GetMapping("/getQuantityOfStudents")
-    public QuantityOfStudents getQuantityOfStudents() {
+    @GetMapping("/quantityOfStudents")
+    public int getQuantityOfStudents() {
         return studentService.getQuantityOfStudents();
     }
 
-    @GetMapping("/getAverageAge")
-    public AverageAge getAverageAge() {
+    @GetMapping("/averageAge")
+    public int getAverageAge() {
         return studentService.getAverageAge();
     }
 
-    @GetMapping("/getLastFive")
+    @GetMapping("/lastFive")
     public List<LastFive> getLastFive() {
         return studentService.getLastFive();
     }
 
-    @GetMapping("/getLastFive2")
+    @GetMapping("/lastFive2")
     public List<Student> getLastFive2() {
         return studentService.getLastFive2();
     }
