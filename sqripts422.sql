@@ -1,5 +1,5 @@
-CREATE TABLE cars (id bigint primary key, make varchar(255), model varchar(255), price integer);
-CREATE TABLE human (id bigint primary key,
+CREATE TABLE cars (id bigserial primary key, make varchar(255), model varchar(255), price integer);
+CREATE TABLE human (id bigserial primary key,
  					name varchar(255),
  					age integer,
  					haslicense boolean,
