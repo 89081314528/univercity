@@ -52,4 +52,9 @@ public class StudentController {
     public Collection<Student> findByAgeBetween(@RequestParam int min,@RequestParam int max) {
         return studentService.findByAgeBetween(min, max);
     }
+
+    @GetMapping("/getByName/{name}")
+    public List<Student> getByName(@PathVariable String name) {
+        return studentService.getByName(name);
+    }
 }
