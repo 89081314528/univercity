@@ -1,7 +1,7 @@
 package ru.hogwarts.university.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.university.dto.LastFive;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.service.StudentService;
 
@@ -56,5 +56,25 @@ public class StudentController {
     @GetMapping("/students/{name}")
     public List<Student> getByName(@PathVariable String name) {
         return studentService.getByName(name);
+    }
+  
+    @GetMapping("/quantityOfStudents")
+    public int getQuantityOfStudents() {
+        return studentService.getQuantityOfStudents();
+    }
+
+    @GetMapping("/averageAge")
+    public int getAverageAge() {
+        return studentService.getAverageAge();
+    }
+
+    @GetMapping("/lastFive")
+    public List<LastFive> getLastFive() {
+        return studentService.getLastFive();
+    }
+
+    @GetMapping("/lastFive2")
+    public List<Student> getLastFive2() {
+        return studentService.getLastFive2();
     }
 }

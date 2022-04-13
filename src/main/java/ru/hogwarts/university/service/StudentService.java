@@ -1,8 +1,8 @@
 package ru.hogwarts.university.service;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.university.dto.LastFive;
 import ru.hogwarts.university.exception.AgeIsNotCorrectException;
-import ru.hogwarts.university.exception.FacultyNotFoundException;
 import ru.hogwarts.university.exception.StudentNotFoundException;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.repository.StudentRepository;
@@ -55,5 +55,21 @@ public class StudentService {
 
     public List<Student> getByName(String name) {
         return studentRepository.getByName(name);
+    }
+
+    public int getQuantityOfStudents() {
+        return studentRepository.getQuantityOfStudents();
+    }
+
+    public int getAverageAge() {
+        return studentRepository.getAverageAge();
+    }
+
+    public List<LastFive> getLastFive() {
+        return studentRepository.getLastFive();
+    }
+
+    public List<Student> getLastFive2() {
+        return studentRepository.getLastFive2();
     }
 }
