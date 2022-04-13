@@ -35,7 +35,7 @@ public class FacultyController {
         facultyService.deleteFaculty(facultyId);
     }
 
-    @GetMapping("/color/{color}")
+    @GetMapping("/faculties/{color}")
     public List<Faculty> getByColour(@PathVariable String color) {
         return facultyService.getByColour(color);
     }
@@ -45,7 +45,7 @@ public class FacultyController {
         return facultyService.getAllFaculties();
     }
 
-    @GetMapping("/nameOrColour")
+    @GetMapping("/faculties/byNameOrColour")
     List<Faculty> findByNameOrColour(@RequestParam (required = false) String name,
                                                          @RequestParam (required = false) String colour) {
         return facultyService.findByNameOrColour(name, colour);

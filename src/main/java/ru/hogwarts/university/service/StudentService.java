@@ -53,6 +53,10 @@ public class StudentService {
         return studentRepository.findByAgeBetween(min, max);
     }
 
+    public List<Student> getByName(String name) {
+        return studentRepository.getByName(name);
+    }
+
     public int getQuantityOfStudents() {
         return studentRepository.getQuantityOfStudents();
     }
@@ -68,5 +72,4 @@ public class StudentService {
     public List<Student> getLastFive2() {
         return studentRepository.getLastFive2();
     }
-
 }
