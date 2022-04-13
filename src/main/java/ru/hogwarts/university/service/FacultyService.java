@@ -1,5 +1,7 @@
 package ru.hogwarts.university.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.university.exception.FacultyNotFoundException;
 import ru.hogwarts.university.exception.NameAndColourIsNullException;
@@ -15,6 +17,8 @@ public class FacultyService {
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
+
+    Logger logger = LoggerFactory.getLogger(FacultyService.class);
 
     public Faculty createFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);

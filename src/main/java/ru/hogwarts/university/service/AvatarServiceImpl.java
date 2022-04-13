@@ -1,5 +1,7 @@
 package ru.hogwarts.university.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,13 +26,15 @@ public class AvatarServiceImpl implements AvatarService {
     @Value("${path.to.avatars.folder}")
     private String avatarsDir;
 
-    private final StudentService studentService;
+    private final StudentServiceImpl studentService;
     private final AvatarRepository avatarRepository;
 
-    public AvatarServiceImpl(StudentService studentService, AvatarRepository avatarRepository) {
+    public AvatarServiceImpl(StudentServiceImpl studentService, AvatarRepository avatarRepository) {
         this.studentService = studentService;
         this.avatarRepository = avatarRepository;
     }
+
+    Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
         Student student = studentService.getStudentById(studentId);
