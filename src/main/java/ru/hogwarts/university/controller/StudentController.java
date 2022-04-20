@@ -3,7 +3,10 @@ package ru.hogwarts.university.controller;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.university.dto.LastFive;
 import ru.hogwarts.university.model.Student;
+import ru.hogwarts.university.service.StudentService;
 import ru.hogwarts.university.service.StudentServiceImpl;
+import ru.hogwarts.university.service.StudentServiceTest;
+import ru.hogwarts.university.service.StudentServiceTest1;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,10 +15,12 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
 
-    private final StudentServiceImpl studentService;
+    private final StudentService studentService;
+    private final StudentServiceTest studentServiceTest;
 
-    public StudentController(StudentServiceImpl studentService) {
+    public StudentController(StudentService studentService, StudentServiceTest studentServiceTest) {
         this.studentService = studentService;
+        this.studentServiceTest = studentServiceTest;
     }
 
     @PostMapping
@@ -26,6 +31,11 @@ public class StudentController {
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable(name = "id") Long studentId) {
         return studentService.getStudentById(studentId);
+    }
+
+    @GetMapping("/test/{id}")
+    public Student getStudentByIdTest(@PathVariable(name = "id") Long studentId) {
+        return studentServiceTest.getStudentByIdTest(studentId);
     }
 
     @PutMapping

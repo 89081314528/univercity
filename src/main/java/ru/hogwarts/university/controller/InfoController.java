@@ -14,7 +14,7 @@ public class InfoController {
     }
 
     @GetMapping("/getPort")
-    public ResponseEntity<Integer> getPort() { // здесь Integer в сервисе int
+    public ResponseEntity<Integer> getPort() {
         return ResponseEntity.ok(infoService.getPort());
     }
 }

@@ -23,44 +23,47 @@ public class StudentServiceImpl implements StudentService {
     Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     public Student createStudent(Student student) {
-        logger.info("Was invoked method for create Student");
+        logger.info("Method for creating Student was invoked");
         return studentRepository.save(student);
     }
 
     public Student getStudentById(Long studentId) {
-        logger.info("Was invoked method for get Student by id:{}", studentId);
-        return studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
-        // как в исключение вставить логгер??????
+        logger.info("Method for get Student by id:{} was invoked", studentId);
+        return studentRepository.findById(studentId)
+                .orElseThrow(() -> {
+                    logger.error("There is no student with id = " + studentId);
+                    return new StudentNotFoundException();
+                });
     }
 
     public Student updateStudent(Student student) {
-        logger.info("Was invoked method for update Student");
+        logger.info("Method for update Student was invoked");
         return studentRepository.save(student);
     }
 
     public void deleteStudent(Long studentId) {
-        logger.info("Was invoked method for delete Student by id:{}", studentId);
+        logger.info("Method for delete Student by id:{} was invoked", studentId);
         boolean studentExists = studentRepository.existsById(studentId);
         if (!studentExists) {
-            logger.error("There is not student with id = " + studentId);
+            logger.error("There is no student with id = " + studentId);
             throw new StudentNotFoundException();
         }
         studentRepository.deleteById(studentId);
     }
 
     public List<Student> getByAge(int age) {
-        logger.info("Was invoked method for get Students by age:{}", age);
+        logger.info("Method for get Students by age:{} was invoked", age);
         return studentRepository.getByAge(age);
     }
 
     public Collection<Student> getAllStudents() {
-        logger.info("Was invoked method for get all Students");
+        logger.info("Method for get all Students was invoked");
         return studentRepository.findAll();
     }
 
     public List<Student> findByAgeBetween(int min, int max) {
-        logger.info("Was invoked method for get Students by age between:{} and {}", min, max);
-        if(min > max) {
+        logger.info("Method for get Students by age between:{} and {} was invoked", min, max);
+        if (min > max) {
             logger.error("Min value > " + min + " max value " + max);
             throw new AgeIsNotCorrectException();
         }
@@ -68,27 +71,27 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public List<Student> getByName(String name) {
-        logger.info("Was invoked method for get Students by name:{}", name);
+        logger.info("Method for get Students by name:{} was invoked", name);
         return studentRepository.getByName(name);
     }
 
     public int getQuantityOfStudents() {
-        logger.info("Was invoked method for get quantity of Students");
+        logger.info("Method for get quantity of Students was invoked");
         return studentRepository.getQuantityOfStudents();
     }
 
     public int getAverageAge() {
-        logger.info("Was invoked method for get average age of Students");
+        logger.info("Method for get average age of Students was invoked");
         return studentRepository.getAverageAge();
     }
 
     public List<LastFive> getLastFive() {
-        logger.info("Was invoked method for get last five Students");
+        logger.info("Method for get last five Students was invoked");
         return studentRepository.getLastFive();
     }
 
     public List<Student> getLastFive2() {
-        logger.info("Was invoked method for get last five (second way) Students");
+        logger.info("Method for get last five (second way) Students was invoked");
         return studentRepository.getLastFive2();
     }
 }
