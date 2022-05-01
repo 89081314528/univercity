@@ -1,7 +1,6 @@
 package ru.hogwarts.university.service;
 
 import ru.hogwarts.university.dto.LastFive;
-import ru.hogwarts.university.exception.StudentNotFoundException;
 import ru.hogwarts.university.model.Student;
 
 import java.util.Collection;
@@ -30,4 +29,12 @@ public interface StudentService {
     List<LastFive> getLastFive();
 
     List<Student> getLastFive2();
+
+    List<String> namesStartWith(String letter);
+
+    double averageAgeByStream();
+
+    void namesByThread();
+
+    void namesBySynchronizedThread();
 }

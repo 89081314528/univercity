@@ -4,9 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.university.dto.LastFive;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.service.StudentService;
-import ru.hogwarts.university.service.StudentServiceImpl;
 import ru.hogwarts.university.service.StudentServiceTest;
-import ru.hogwarts.university.service.StudentServiceTest1;
 
 import java.util.Collection;
 import java.util.List;
@@ -86,5 +84,23 @@ public class StudentController {
     @GetMapping("/lastFive2")
     public List<Student> getLastFive2() {
         return studentService.getLastFive2();
+    }
+
+    @GetMapping("/namesStartWith")
+    public List<String> namesStartsWith(@RequestParam String letter) {
+        return studentService.namesStartWith(letter);
+    }
+
+    @GetMapping("/averageAgeByStream")
+    public double averageAgeByStream() {
+        return studentService.averageAgeByStream();
+    }
+
+    @GetMapping("/namesByThread")
+    public void namesByThread() { studentService.namesByThread();
+    }
+
+    @GetMapping("/namesBySynchronizedThread")
+    public void namesBySynchronizedThread() { studentService.namesBySynchronizedThread();
     }
 }

@@ -50,4 +50,9 @@ public class FacultyController {
                                                          @RequestParam (required = false) String colour) {
         return facultyService.findByNameOrColour(name, colour);
     }
+
+    @GetMapping("/maxLengthName")
+    public String maxLengthName() {
+        return facultyService.maxLengthName();
+    }
 }
