@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.university.dto.LastFive;
 import ru.hogwarts.university.model.Student;
 import ru.hogwarts.university.service.StudentService;
+import ru.hogwarts.university.service.StudentServiceTest;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,9 +14,11 @@ import java.util.List;
 public class StudentController {
 
     private final StudentService studentService;
+    private final StudentServiceTest studentServiceTest;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, StudentServiceTest studentServiceTest) {
         this.studentService = studentService;
+        this.studentServiceTest = studentServiceTest;
     }
 
     @PostMapping
@@ -26,6 +29,11 @@ public class StudentController {
     @GetMapping("/{id}")
     public Student getStudentById(@PathVariable(name = "id") Long studentId) {
         return studentService.getStudentById(studentId);
+    }
+
+    @GetMapping("/test/{id}")
+    public Student getStudentByIdTest(@PathVariable(name = "id") Long studentId) {
+        return studentServiceTest.getStudentByIdTest(studentId);
     }
 
     @PutMapping
@@ -76,5 +84,27 @@ public class StudentController {
     @GetMapping("/lastFive2")
     public List<Student> getLastFive2() {
         return studentService.getLastFive2();
+    }
+
+    @GetMapping("/namesStartWith")
+    public List<String> namesStartsWith(@RequestParam String letter) {
+        return studentService.namesStartWith(letter);
+    }
+
+    @GetMapping("/averageAgeByStream")
+    public double averageAgeByStream() {
+        return studentService.averageAgeByStream();
+    }
+
+    @GetMapping("/namesByThread")
+    public void namesByThread() { studentService.namesByThread();
+    }
+
+    @GetMapping("/namesBySynchronizedThread")
+    public void namesBySynchronizedThread() { studentService.namesBySynchronizedThread();
+    }
+
+    @GetMapping("/sumFromOneToN")
+    public int sumFromOneToN(@RequestParam int n) { return studentService.sumFromOneToN(n);
     }
 }

@@ -1,75 +1,42 @@
 package ru.hogwarts.university.service;
 
-import org.springframework.stereotype.Service;
 import ru.hogwarts.university.dto.LastFive;
-import ru.hogwarts.university.exception.AgeIsNotCorrectException;
-import ru.hogwarts.university.exception.StudentNotFoundException;
 import ru.hogwarts.university.model.Student;
-import ru.hogwarts.university.repository.StudentRepository;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
-@Service
-public class StudentService {
+public interface StudentService {
+    Student getStudentById(Long studentId);
+    Collection<Student> getAllStudents();
 
-    private final StudentRepository studentRepository;
+    Student createStudent(Student student);
 
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    Student updateStudent(Student student);
 
-    public Student createStudent(Student student) {
-        return studentRepository.save(student);
-    }
+    void deleteStudent(Long studentId);
 
-    public Student getStudentById(Long studentId) {
-        return studentRepository.findById(studentId).orElseThrow(StudentNotFoundException::new);
-    }
+    List<Student> getByAge(int age);
 
-    public Student updateStudent(Student student) {
-        return studentRepository.save(student);
-    }
+    Collection<Student> findByAgeBetween(int min, int max);
 
-    public void deleteStudent(Long studentId) {
-        boolean studentExists = studentRepository.existsById(studentId);
-        if (!studentExists) {
-            throw new StudentNotFoundException();
-        }
-        studentRepository.deleteById(studentId);
-    }
+    List<Student> getByName(String name);
 
-    public List<Student> getByAge(int age) {
-        return studentRepository.getByAge(age);
-    }
+    int getQuantityOfStudents();
 
-    public Collection<Student> getAllStudents() {
-        return studentRepository.findAll();
-    }
+    int getAverageAge();
 
-    public List<Student> findByAgeBetween(int min, int max) {
-        if(min > max) {
-            throw new AgeIsNotCorrectException();
-        }
-        return studentRepository.findByAgeBetween(min, max);
-    }
+    List<LastFive> getLastFive();
 
-    public List<Student> getByName(String name) {
-        return studentRepository.getByName(name);
-    }
+    List<Student> getLastFive2();
 
-    public int getQuantityOfStudents() {
-        return studentRepository.getQuantityOfStudents();
-    }
+    List<String> namesStartWith(String letter);
 
-    public int getAverageAge() {
-        return studentRepository.getAverageAge();
-    }
+    double averageAgeByStream();
 
-    public List<LastFive> getLastFive() {
-        return studentRepository.getLastFive();
-    }
+    void namesByThread();
 
-    public List<Student> getLastFive2() {
-        return studentRepository.getLastFive2();
-    }
+    void namesBySynchronizedThread();
+
+    int sumFromOneToN(int n);
 }

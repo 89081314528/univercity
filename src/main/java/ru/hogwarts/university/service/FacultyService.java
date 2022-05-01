@@ -1,12 +1,14 @@
 package ru.hogwarts.university.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.university.exception.FacultyNotFoundException;
 import ru.hogwarts.university.exception.NameAndColourIsNullException;
 import ru.hogwarts.university.model.Faculty;
 import ru.hogwarts.university.repository.FacultyRepository;
-
 import java.util.*;
+
 
 @Service
 public class FacultyService {
@@ -15,6 +17,8 @@ public class FacultyService {
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
+
+    Logger logger = LoggerFactory.getLogger(FacultyService.class);
 
     public Faculty createFaculty(Faculty faculty) {
         return facultyRepository.save(faculty);
@@ -55,5 +59,15 @@ public class FacultyService {
             throw new NameAndColourIsNullException();
         }
         return facultyRepository.findByNameIgnoreCaseOrColourIgnoreCase(name, colour);
+    }
+
+    public String maxLengthName() {
+        List<Faculty> faculties = facultyRepository.findAll();
+        Comparator<String> comparator = Comparator.comparing(String::length);
+        return faculties.stream()
+                .map(Faculty::getName)
+                .max(comparator)
+                .orElseThrow();
+        // если два факультета с одинаковой длиной названия, какой выберет?
     }
 }
