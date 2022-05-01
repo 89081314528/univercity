@@ -37,4 +37,6 @@ public interface StudentService {
     void namesByThread();
 
     void namesBySynchronizedThread();
+
+    int sumFromOneToN(int n);
 }

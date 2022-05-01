@@ -67,7 +67,7 @@ public class FacultyService {
         return faculties.stream()
                 .map(Faculty::getName)
                 .max(comparator)
-                .orElseThrow(); // ???????????????
+                .orElseThrow();
         // если два факультета с одинаковой длиной названия, какой выберет?
     }
 }

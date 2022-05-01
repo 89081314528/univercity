@@ -12,6 +12,7 @@ import ru.hogwarts.university.repository.StudentRepository;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -100,7 +101,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<String> namesStartWith(String letter) {
-        List<Student> students = studentRepository.findAll(); // или тут лучше сразу получить имена?
+        List<Student> students = studentRepository.findAll();
         return students.stream()
                 .map(Student::getName)
                 .map(String::toUpperCase)
@@ -113,15 +114,15 @@ public class StudentServiceImpl implements StudentService {
     public double averageAgeByStream() {
         List<Student> students = studentRepository.findAll();
         return students.stream()
-                .mapToInt(Student::getAge)
+                .mapToInt(Student::getAge)//mapToInt делает стрим интов(IntStream) и у них можно вызвать метод
                 .average()
-                .orElseThrow(); //????
+                .orElseThrow(); //то же что метод гет, метод гет тоже кидает исключение
 
     }
 
     @Override
     public void namesByThread() {
-        List<Student> students = studentRepository.findAll(); // или потом сделать лист с именами
+        List<Student> students = studentRepository.findAll();
         System.out.println(students.get(0).getName());
         System.out.println(students.get(1).getName());
         new Thread(() -> {
@@ -150,6 +151,11 @@ public class StudentServiceImpl implements StudentService {
             printName(students.get(5));
         }).start();
 
+    }
+
+    @Override
+    public int sumFromOneToN(int n) {
+        return n*(n+1)/2;
     }
 
     public synchronized void printName(Student student) {

@@ -103,4 +103,8 @@ public class StudentController {
     @GetMapping("/namesBySynchronizedThread")
     public void namesBySynchronizedThread() { studentService.namesBySynchronizedThread();
     }
+
+    @GetMapping("/sumFromOneToN")
+    public int sumFromOneToN(@RequestParam int n) { return studentService.sumFromOneToN(n);
+    }
 }
